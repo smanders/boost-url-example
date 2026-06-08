@@ -1,3 +1,6 @@
 [submodule "vcpkg"]
 	path = vcpkg
 	url = https://github.com/microsoft/vcpkg
+[submodule ".devcontainer"]
+	path = .devcontainer
+	url = https://github.com/externpro/externpro
