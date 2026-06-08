@@ -42,3 +42,24 @@ misc_group_sources("GitHub" FILES
     ".github/workflows/cmake.yml")
 misc_group_sources("VcPkg" FILES
     "vcpkg.json")
+
+set(repoName boost-url-example)
+set(targetsFile ${repoName}-targets)
+install(TARGETS redirect url-redirect url-tool
+  EXPORT ${targetsFile}
+  ARCHIVE DESTINATION ${CMAKE_INSTALL_LIBDIR}
+  LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR}
+  RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR}
+  )
+install(DIRECTORY libs/redirect/include/ DESTINATION ${CMAKE_INSTALL_INCLUDEDIR})
+if(COMMAND xpExternPackage)
+  xpExternPackage(REPO_NAME ${repoName} TARGETS_FILE ${targetsFile}
+    LIBRARIES redirect EXE url-redirect PVT_DEPS GTest NO_EXPORT
+    WEB "https://www.meetup.com/utah-cpp-programmers/events/313994701/"
+    UPSTREAM "github.com/LegalizeAdulthood/boost-url-example"
+    DESC "Manipulating URLs with Boost URL"
+    )
+elseif(NOT DEFINED CMAKE_INSTALL_CMAKEDIR)
+  set(CMAKE_INSTALL_CMAKEDIR ${CMAKE_INSTALL_DATADIR}/cmake)
+endif()
+install(EXPORT ${targetsFile} DESTINATION ${CMAKE_INSTALL_CMAKEDIR} NAMESPACE ${repoName}::)
