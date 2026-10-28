@@ -1,1 +1,5 @@
 .vs
+# externpro
+.env
+_bld*/
+docker-compose.override.yml
